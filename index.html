@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudSync Developer Vault</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">&lt;/&gt;</div>
+
+            <div class="brand-text">
+                <h1>CloudSync Developer Vault</h1>
+                <p>personal workspace</p>
+            </div>
+
+        </div>
+
+        <div class="account-panel" id="accountPanel">
+
+            <div class="account-status">
+
+                <span
+                    class="account-dot"
+                    id="accountDot"
+                ></span>
+
+                <div class="account-info">
+
+                    <strong id="accountLabel">
+                        Guest Mode
+                    </strong>
+
+                    <span id="accountSubtext">
+                        Not signed in
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div
+                class="account-actions"
+                id="guestActions"
+            >
+
+                <button
+                    type="button"
+                    id="loginButton"
+                    class="account-button"
+                >
+                    Log In
+                </button>
+
+                <button
+                    type="button"
+                    id="signupButton"
+                    class="account-button primary"
+                >
+                    Sign Up
+                </button>
+
+            </div>
+
+            <div
+                class="account-actions"
+                id="userActions"
+                hidden
+            >
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                    class="account-button logout"
+                >
+                    Log Out
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="app">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-title">
+                Vault
+            </div>
+
+            <button
+                class="sidebar-item active"
+                data-category="All"
+            >
+                <span>▦</span>
+                All Entries
+                <span
+                    class="category-count"
+                    id="allCount"
+                >
+                    0
+                </span>
+            </button>
+
+            <button
+                class="sidebar-item"
+                data-category="Coding"
+            >
+                <span>⌘</span>
+                Coding
+                <span
+                    class="category-count"
+                    id="codingCount"
+                >
+                    0
+                </span>
+            </button>
+
+            <button
+                class="sidebar-item"
+                data-category="School"
+            >
+                <span>▣</span>
+                School
+                <span
+                    class="category-count"
+                    id="schoolCount"
+                >
+                    0
+                </span>
+            </button>
+
+            <button
+                class="sidebar-item"
+                data-category="Ideas"
+            >
+                <span>✦</span>
+                Ideas
+                <span
+                    class="category-count"
+                    id="ideasCount"
+                >
+                    0
+                </span>
+            </button>
+
+            <button
+                class="sidebar-item"
+                data-category="Personal"
+            >
+                <span>●</span>
+                Personal
+                <span
+                    class="category-count"
+                    id="personalCount"
+                >
+                    0
+                </span>
+            </button>
+
+        </aside>
+
+        <main class="main">
+
+            <section class="workspace-header">
+
+                <div>
+
+                    <h2>
+                        Developer Workspace
+                    </h2>
+
+                    <p>
+                        Store your ideas, code snippets,
+                        notes, and study targets.
+                    </p>
+
+                </div>
+
+                <button
+                    class="new-button"
+                    id="newEntryButton"
+                >
+                    + New Vault Entry
+                </button>
+
+            </section>
+
+            <section class="toolbar">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search your vault..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <select id="categoryFilter">
+
+                    <option value="All">
+                        All Categories
+                    </option>
+
+                    <option value="Coding">
+                        Coding
+                    </option>
+
+                    <option value="School">
+                        School
+                    </option>
+
+                    <option value="Ideas">
+                        Ideas
+                    </option>
+
+                    <option value="Personal">
+                        Personal
+                    </option>
+
+                </select>
+
+            </section>
+
+            <section
+                class="cards"
+                id="entriesContainer"
+            ></section>
+
+        </main>
+
+    </div>
+
+    <div
+        class="modal-overlay"
+        id="modalOverlay"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h3 id="modalTitle">
+                    New Vault Entry
+                </h3>
+
+                <button
+                    class="close-button"
+                    id="closeModalButton"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form
+                class="form"
+                id="entryForm"
+            >
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="titleInput"
+                    >
+                        Title
+                    </label>
+
+                    <input
+                        class="form-input"
+                        id="titleInput"
+                        type="text"
+                        placeholder="e.g. FocusForge Bug Fixes"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="categoryInput"
+                    >
+                        Category
+                    </label>
+
+                    <select
+                        id="categoryInput"
+                        required
+                    >
+
+                        <option value="Coding">
+                            Coding
+                        </option>
+
+                        <option value="School">
+                            School
+                        </option>
+
+                        <option value="Ideas">
+                            Ideas
+                        </option>
+
+                        <option value="Personal">
+                            Personal
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="contentInput"
+                    >
+                        Content
+                    </label>
+
+                    <textarea
+                        id="contentInput"
+                        placeholder="Write your note, code, study target, or idea here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="form-footer">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="cancelButton"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                    >
+                        Save Entry
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div
+        class="modal-overlay"
+        id="authModalOverlay"
+    >
+
+        <div class="modal auth-modal">
+
+            <div class="modal-header">
+
+                <h3 id="authModalTitle">
+                    Log In
+                </h3>
+
+                <button
+                    class="close-button"
+                    id="closeAuthModalButton"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form
+                class="form"
+                id="authForm"
+            >
+
+                <div class="auth-field">
+
+                    <label
+                        class="form-label"
+                        for="authEmail"
+                    >
+                        Email
+                    </label>
+
+                    <input
+                        class="form-input"
+                        type="email"
+                        id="authEmail"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="auth-field">
+
+                    <label
+                        class="form-label"
+                        for="authPassword"
+                    >
+                        Password
+                    </label>
+
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="authPassword"
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <p
+                    id="authMessage"
+                    class="auth-message"
+                ></p>
+
+                <div class="form-footer">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="switchAuthModeButton"
+                    >
+                        Create Account
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                        id="authSubmitButton"
+                    >
+                        Log In
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+    <script
+        type="module"
+        src="script.js"
+    ></script>
+
+</body>
+</html>
